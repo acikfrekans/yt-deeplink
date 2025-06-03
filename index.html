@@ -1,1 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YouTube Deep Link Oluşturucu (Parolalı)</title>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: sans-serif; padding: 2rem; }
+    input, button { padding: 0.5rem; margin: 0.5rem 0; width: 100%; max-width: 500px; }
+    .hidden { display: none; }
+    .output { margin-top: 1rem; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>YouTube Deep Link Oluşturucu</h1>
+
+  <div id="password-area">
+    <p>Devam etmek için parolayı giriniz:</p>
+    <input type="password" id="password-input" placeholder="Parola">
+    <button onclick="checkPassword()">Giriş Yap</button>
+    <p id="error-msg" style="color: red;"></p>
+  </div>
+
+  <div id="link-generator" class="hidden">
+    <p>YouTube video linkini aşağıya yapıştır:</p>
+    <input type="text" id="ytLink" placeholder="https://www.youtube.com/watch?v=XXXXXX">
+    <button onclick="createLink()">Deep Link Oluştur</button>
+    <div class="output" id="output"></div>
+  </div>
+
+  <script>
+    const correctPassword = "gizli123"; // 🔐 BURAYA KENDİ PAROLANI YAZ
+
+    function checkPassword() {
+      const entered = document.getElementById("password-input").value;
+      if (entered === correctPassword) {
+        document.getElementById("password-area").style.display = "none";
+        document.getElementById("link-generator").classList.remove("hidden");
+      } else {
+        document.getElementById("error-msg").innerText = "Parola yanlış!";
+      }
+    }
+
+    function getVideoId(url) {
+      const match = url.match(/(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+      return match ? match[1] : null;
+    }
+
+    function createLink() {
+      const ytUrl = document.getElementById('ytLink').value.trim();
+      const videoId = getVideoId(ytUrl);
+      if (!videoId) {
+        alert("Geçerli bir YouTube linki giriniz.");
+        return;
+      }
+
+      const redirectUrl = `https://seninkullanicin.github.io/youtube-deeplink/?v=${videoId}`;
+      document.getElementById('output').innerHTML = `📎 Kopyalanabilir Link:<br><a href="${redirectUrl}" target="_blank">${redirectUrl}</a>`;
+    }
+  </script>
+</body>
+</html>
 
