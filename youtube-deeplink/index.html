@@ -1,1 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Yönlendiriliyor...</title>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const videoId = params.get("v");
+    if (videoId) {
+      window.location.href = `youtube://www.youtube.com/watch?v=${videoId}`;
+      setTimeout(() => {
+        window.location.href = `https://youtu.be/${videoId}`;
+      }, 2000);
+    } else {
+      document.body.innerHTML = "Geçersiz bağlantı.";
+    }
+  </script>
+</head>
+<body>
+</body>
+</html>
 
