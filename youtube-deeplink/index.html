@@ -7,7 +7,10 @@
     const params = new URLSearchParams(window.location.search);
     const videoId = params.get("v");
     if (videoId) {
+      // Önce YouTube uygulamasını açmaya çalış
       window.location.href = `youtube://www.youtube.com/watch?v=${videoId}`;
+
+      // 2 saniye sonra web YouTube'a yönlendir
       setTimeout(() => {
         window.location.href = `https://youtu.be/${videoId}`;
       }, 2000);
@@ -19,4 +22,3 @@
 <body>
 </body>
 </html>
-
